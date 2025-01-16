@@ -5,7 +5,7 @@ const AddStudent = () => {
 
     const navigate = useNavigate();
     const handleOnClick = () =>{
-        navigate('/form');
+        navigate('/add-student');
     }
 
     useEffect(()=>{

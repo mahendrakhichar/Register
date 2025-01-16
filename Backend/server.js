@@ -64,6 +64,17 @@ app.post('/add', upload.single('Photo'), async(req,res)=>{
     }
 })
 
+app.get('/students',async(req,res)=>{
+    try{
+        const students = await Student.find();
+        res.status(200).json(students);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "failed to fetch students"})
+    }
+})
+
 app.listen(port, ()=>{
     console.log(`server is running at port: ${port}`);
 })

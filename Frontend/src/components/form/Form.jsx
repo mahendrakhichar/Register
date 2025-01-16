@@ -50,7 +50,7 @@ const Form = () => {
             </div>
             <div>
               <ul>
-                <input type="file" onChange={(e)=>{setPhoto(e.target.files[0])}} />
+                <input type="file" onChange={(e)=>{setPhoto(e.target.files[0])}} required />
               </ul>
               <ul>
                 <input type="text" placeholder='Name' onChange={(e)=>{setName(e.target.value)}}  required/>

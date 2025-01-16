@@ -9,7 +9,7 @@ function App()  {
       <Router>
         <Routes>
           <Route path="/" element= {<Container/>}/>
-          <Route path = "/form" element={<Form/>} />
+          <Route path = "/add-student" element={<Form/>} />
         </Routes>
       </Router>
   );
