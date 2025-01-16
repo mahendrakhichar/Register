@@ -32,18 +32,18 @@ const SearchStudent = () => {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white shadow-lg rounded-md">
+    <div className="w-full max-w-screen-lg p-6 mx-auto bg-white shadow-lg rounded-md">
       <div className="mb-4">
         <input
           type="text"
           placeholder="Enter student details to search either name or roll no."
           onChange={(e) => setInput(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full py-4 px-6 text-2xl border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <button
         onClick={onSubmitHandler}
-        className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full py-3 text-xl bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Search
       </button>

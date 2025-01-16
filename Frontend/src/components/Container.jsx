@@ -3,13 +3,15 @@ import { SearchStudent, AddStudent } from './index';
 
 const Container = () => {
   return (
-    <div className="container mx-auto p-4">
-      <div className="space-y-8"> {/* Adds vertical spacing between components */}
-        <div className="border-b pb-4">
-          <SearchStudent />
-        </div>
-        <div className="border-b pb-4">
-          <AddStudent />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-4xl p-4">
+        <div className="space-y-8">
+          <div className="border-b pb-4">
+            <SearchStudent />
+          </div>
+          <div className="border-b pb-4">
+            <AddStudent />
+          </div>
         </div>
       </div>
     </div>
