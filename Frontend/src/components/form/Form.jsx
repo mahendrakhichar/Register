@@ -17,7 +17,7 @@ const Form = () => {
           "content-type":"application/json",
         },
         body:JSON.stringify({
-          "Name":name,
+          "name":name,
         }),
       })
       .then((response)=>{

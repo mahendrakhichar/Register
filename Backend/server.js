@@ -1,5 +1,4 @@
 const express = require("express")
-const mongoose = require("mongoose")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const port = 5000;
@@ -7,13 +6,11 @@ const port = 5000;
 const mongoose  = require("mongoose")
 //1st> connect mongodb
 mongoose.connect("mongodb://localhost:27017/StudentRegister",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
 })
 .then(()=>{
     console.log("mongodb connected sucessfully");
 })
-.then((err)=>{
+.catch((err)=>{
     console.log("there is an error", err);
 })
 
@@ -21,7 +18,7 @@ mongoose.connect("mongodb://localhost:27017/StudentRegister",{
 const StudentSchema = new mongoose.Schema({
     name:String,
 });
-const model = mongoose.model("student", StudentSchema);
+const Student = mongoose.model("Student", StudentSchema);
 
 
 const app = express();
@@ -34,13 +31,19 @@ app.get('/',(req,res)=>{
 });
 
 //routes
-app.post('/add', (req,res)=>{
+app.post('/add', async(req,res)=>{
     const data = req.body;
-    console.log(data);
-    res.json({
-        message:"data recieved",
-        details: data,
-    })
+    // now i get the data from frontend and will store it to mongodb
+    try{
+        const newStudnet = new Student({
+            name:data.name,
+        })
+        await newStudnet.save();
+        res.json({message:"data added to mongodb"})
+    }
+    catch(error){
+        console.log(error);
+    }
 })
 
 app.listen(port, ()=>{
