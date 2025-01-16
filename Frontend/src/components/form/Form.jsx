@@ -7,18 +7,22 @@ const Form = () => {
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [about, setAbout] = useState("");
+  const [photo, setPhoto] = useState(null);
 
+  const formData = new FormData();  
+  formData.append("Name",name);
+  formData.append("FathersName",FatherName);
+  formData.append("Class",clas);
+  formData.append("ContactNumber",number);
+  formData.append("EmailId",email);
+  formData.append("Introduction",about);
+  formData.append("Photo",photo);
   const submitHandler = async(e) =>{
     e.preventDefault();
     try{
         const response = await fetch("http://localhost:5000/add",{
         method:"post",
-        headers:{
-          "content-type":"application/json",
-        },
-        body:JSON.stringify({
-          "name":name,
-        }),
+        body:formData,
       })
       .then((response)=>{
         if(response.ok){
@@ -41,14 +45,17 @@ const Form = () => {
         <form onSubmit={submitHandler}>
           <li>
             <div>
-              <img src="" alt="" />
+              <img src={photo? URL.createObjectURL(photo):"" } alt="" />
               <p>Add the image from device</p>
             </div>
             <div>
               <ul>
+                <input type="file" onChange={(e)=>{setPhoto(e.target.files[0])}} />
+              </ul>
+              <ul>
                 <input type="text" placeholder='Name' onChange={(e)=>{setName(e.target.value)}}  required/>
               </ul>
-              {/* <ul>
+               <ul>
                 <input type="text" placeholder='Fathers Name' onChange={(e)=>{setFatherName(e.target.value)}} required/>
               </ul>
               <ul>
@@ -62,7 +69,7 @@ const Form = () => {
               </ul>
               <ul>
                 <input type="text" placeholder='Tell me about youseft' onChange={(e)=>{setAbout(e.target.value)}} />
-              </ul> */}
+              </ul> 
             </div>
           </li>
           <button type='submit'>submit</button>
