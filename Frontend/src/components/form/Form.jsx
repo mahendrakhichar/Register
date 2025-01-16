@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const Form = () => {
   const [name, setName] = useState("");
@@ -10,72 +10,103 @@ const Form = () => {
   const [photo, setPhoto] = useState(null);
 
   const formData = new FormData();  
-  formData.append("Name",name);
-  formData.append("FathersName",FatherName);
-  formData.append("Class",clas);
-  formData.append("ContactNumber",number);
-  formData.append("EmailId",email);
-  formData.append("Introduction",about);
-  formData.append("Photo",photo);
-  const submitHandler = async(e) =>{
+  formData.append("Name", name);
+  formData.append("FathersName", FatherName);
+  formData.append("Class", clas);
+  formData.append("ContactNumber", number);
+  formData.append("EmailId", email);
+  formData.append("Introduction", about);
+  formData.append("Photo", photo);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    try{
-        const response = await fetch("http://localhost:5000/add",{
-        method:"post",
-        body:formData,
+    try {
+      const response = await fetch("http://localhost:5000/add", {
+        method: "post",
+        body: formData,
       })
-      .then((response)=>{
-        if(response.ok){
-          console.log("studnet added successfully");
+      .then((response) => {
+        if (response.ok) {
+          console.log("Student added successfully");
           return response.json();
         }
       })
-      .then((data)=>{
+      .then((data) => {
         console.log(data);
-      })
-
+      });
+    } catch (error) {
+      console.log("Error", error);
     }
-    catch(error){
-      console.log("Error",error);
-    }
-  }
+  };
 
   return (
-    <div>
-        <form onSubmit={submitHandler}>
-          <li>
-            <div>
-              <img src={photo? URL.createObjectURL(photo):"" } alt="" />
-              <p>Add the image from device</p>
-            </div>
-            <div>
-              <ul>
-                <input type="file" onChange={(e)=>{setPhoto(e.target.files[0])}} required />
-              </ul>
-              <ul>
-                <input type="text" placeholder='Name' onChange={(e)=>{setName(e.target.value)}}  required/>
-              </ul>
-               <ul>
-                <input type="text" placeholder='Fathers Name' onChange={(e)=>{setFatherName(e.target.value)}} required/>
-              </ul>
-              <ul>
-                <input type="text" placeholder='Class' onChange={(e)=>{setClas(e.target.value)}} required/>
-              </ul>
-              <ul>
-                <input type="number" placeholder='Mobile Number' onChange={(e)=>{setNumber(e.target.value)}} required/>
-              </ul>
-              <ul>
-                <input type="emial" placeholder='Email ID' onChange={(e)=>{setEmail(e.target.value)}} />
-              </ul>
-              <ul>
-                <input type="text" placeholder='Tell me about youseft' onChange={(e)=>{setAbout(e.target.value)}} />
-              </ul> 
-            </div>
-          </li>
-          <button type='submit'>submit</button>
-        </form>
+    <div className="max-w-4xl mx-auto p-6">
+      <form onSubmit={submitHandler} className="space-y-6">
+        <div className="flex flex-col items-center space-y-2">
+          <img 
+            src={photo ? URL.createObjectURL(photo) : ""}
+            alt="Preview"
+            className="w-32 h-32 rounded-full object-cover"
+          />
+          <p className="text-center text-gray-500">Add the image from device</p>
+        </div>
+        <div className="space-y-4">
+          <input 
+            type="file"
+            onChange={(e) => setPhoto(e.target.files[0])}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input 
+            type="text"
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input 
+            type="text"
+            placeholder="Father's Name"
+            onChange={(e) => setFatherName(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input 
+            type="text"
+            placeholder="Class"
+            onChange={(e) => setClas(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input 
+            type="number"
+            placeholder="Mobile Number"
+            onChange={(e) => setNumber(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <input 
+            type="email"
+            placeholder="Email ID"
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input 
+            type="text"
+            placeholder="Tell me about yourself"
+            onChange={(e) => setAbout(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <button 
+          type="submit"
+          className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md shadow-lg hover:bg-blue-600 transition duration-200"
+        >
+          Submit
+        </button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;
