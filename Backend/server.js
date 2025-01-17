@@ -1,12 +1,14 @@
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
-const port = 5000;
+const port = 5000 || process.env.PORT;
 const multer = require("multer")
+require('dotenv').config();
 // now i want to connect mongodb
 const mongoose  = require("mongoose")
 //1st> connect mongodb
-mongoose.connect("mongodb://localhost:27017/StudentRegister",{
+const MONGODBURI = process.env.MONGODB_URI;
+mongoose.connect(MONGODBURI,{
 })
 .then(()=>{
     console.log("mongodb connected sucessfully");
@@ -20,8 +22,8 @@ const StudentSchema = new mongoose.Schema({
     Name:String,
     FathersName:String,
     Class:String,
-    ContactNumber:Number,
-    EmailID:String,
+    ContactNumber:Number,   
+    EmailId:String,
     Introduction:String,
     Photo:Buffer,
 });
@@ -52,10 +54,11 @@ app.post('/add', upload.single('Photo'), async(req,res)=>{
             FathersName:data.FathersName,
             Class:data.Class,
             ContactNumber:data.ContactNumber,
-            EmailID:data.EmailID,
+            EmailId:data.EmailId,
             Introduction:data.Introduction,
             Photo:photo.buffer,
         })
+        console.log(data.EmailId);
         await newStudnet.save();
         res.json({message:"data added to mongodb"})
     }
@@ -64,7 +67,7 @@ app.post('/add', upload.single('Photo'), async(req,res)=>{
     }
 })
 
-app.get('/students',async(req,res)=>{
+app.get('/api/students',async(req,res)=>{
     try{
         const students = await Student.find();
         res.status(200).json(students);

@@ -9,7 +9,7 @@ const SearchStudent = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // Fetching data from server
-    const response = fetch("http://localhost:5000/students", {
+    const response = fetch("/api/students", {
       method: "get",
     })
       .then((response) => {
